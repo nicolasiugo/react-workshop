@@ -58,22 +58,22 @@ sequelize.sync().then(function() {
   })
   .then(q => {
     Answer.create({
-      text: "Muy complicado :(",
+      text: "Demasiado complejo :(",
       question_id: q.id
     });
 
     Answer.create({
-      text: "Prefiero [insertar framework js]",
+      text: "Prefiero [insertar framework js de preferencia]",
       question_id: q.id
     });
 
     Answer.create({
-      text: "Esta muy bueno",
+      text: "Está muy bueno",
       question_id: q.id
     });
 
     Answer.create({
-      text: "Me voló la cabeza",
+      text: "Mind = blown",
       question_id: q.id
     });
   });
