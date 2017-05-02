@@ -1,0 +1,6 @@
+1o - Preguntar si trabajaron con api rest
+2o - Usar postman para navegar la api
+3o - Contar de create-react-app. Crear una app nueva y mostrar las carpetas. Contar de webpack, babel (para jsx y cosas nuevas de js)
+4o - Ir al proyecto app y arrancar con react
+
+export PATH=$PATH:/c/Users/nicol/AppData/Roaming/npm
