@@ -3,4 +3,28 @@
 3o - Contar de create-react-app. Crear una app nueva y mostrar las carpetas. Contar de webpack, babel (para jsx y cosas nuevas de js)
 4o - Ir al proyecto app y arrancar con react
 
+* mostrar tests unitarios (enzyme y jest)
+
+
 export PATH=$PATH:/c/Users/nicol/AppData/Roaming/npm
+
+
+
+
+DESARROLLO:
+en App:
+- explicar el constructor para setear el estado y donde vamos a hacer la llamada. Este va a ser nuestro "smart" component.
+- En el state, poner un objeto question null y un array answers vacio.
+- En el componentDidMount usar fetchData() donde tenemos  Client.js para hacer un Promise.all .get('questions/1') y un .get('questions/1/answers') y actualizar 
+el estado en el .then()
+- correr y mostrar el developer toolbar con la llamada.
+- ir al render y hacer en el titulo un print del question.description, ejecutar y mostrar el error en consola.
+- En el render poner el if (!this.state.loading) un "cargando...". ejecutar y todo ok
+- En el render hacer un this.state.answers.map e imprimir {answer.text}
+- Apagar la api y generar error. Agregar el catch en el Promise.all
+- Hacer un componente para answer. Que sea stateless functional
+
+
+
+
+- una carpet /__tests__ con los snapshot tests

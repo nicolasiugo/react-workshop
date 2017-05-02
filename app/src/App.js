@@ -8,36 +8,46 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      loading: true,
       question: null,
-      answers: []
+      answers: [],
+      error: false
     }
   }
 
   componentDidMount() {
-    Client
-      .get('questions/1')
-      .then(question => {
-        this.setState({
-          question
-        })
-      });
+    this.fetchData()
+  }
 
-
-    Client
-      .get('questions/1/answers')
-      .then(answers =>{
-        this.setState({
-          answers
-        })
+  fetchData() {
+    Promise.all([
+      Client.get('questions/1'), 
+      Client.get('questions/1/answers')
+    ]).then(res => {
+      this.setState({
+        question: res[0],
+        answers: res[1],
+        loading: false
       })
+    }).catch(err => {
+      console.log(err)
+      this.setState({
+        error: err,
+        loading: false
+      })
+    })
   }
 
   render() {
 
-    if (!this.state.question) {
+    if (this.state.loading) {
       return (
         <div>Cargando...</div>
       );
+    }
+
+    if (this.state.error) {
+      return <div>Error: {this.state.error.message}</div>
     }
 
     return (
