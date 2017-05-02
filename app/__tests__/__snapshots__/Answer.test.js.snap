@@ -1,5 +1,14 @@
 exports[`test renders correctly 1`] = `
 <div>
-  holis
+  <input
+    defaultChecked={false}
+    id="answer-input-1"
+    onChange={[Function]}
+    type="radio"
+    value={1} />
+  <label
+    htmlFor="answer-input-1">
+    Una respuesta
+  </label>
 </div>
 `;

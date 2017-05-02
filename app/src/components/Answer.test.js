@@ -3,11 +3,17 @@ import {shallow} from 'enzyme';
 import Answer from './Answer';
 
 it('renders without crashing', () => {
-  const checkbox = shallow(
-    <Answer />
+  const mockFn = jest.fn();
+
+  const wrapper = shallow(
+    <Answer
+      answerId={1}
+      answerContent="Una respuesta"
+      onAnswerSelected={mockFn} />
   );
 
-  expect(checkbox.text()).toEqual('holis');
+  expect(wrapper.find('label').text()).toEqual('Una respuesta');
+
 
   /*checkbox.find('input').simulate('change');
 
