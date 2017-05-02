@@ -1,17 +1,21 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import Client from './Client';
+import Answer from './components/Answer';
 import './App.css';
 
 class App extends Component {
 
   constructor(props) {
     super(props);
+    this.handleAnswerSelected = this.handleAnswerSelected.bind(this)
+    
     this.state = {
       loading: true,
       question: null,
       answers: [],
-      error: false
+      error: false,
+      saving: false
     }
   }
 
@@ -30,12 +34,27 @@ class App extends Component {
         loading: false
       })
     }).catch(err => {
-      console.log(err)
       this.setState({
         error: err,
         loading: false
       })
     })
+  }
+
+  handleAnswerSelected(evt) {
+    this.setState({saving: true})
+
+    Client
+      .post(`answers/${evt.target.value}/response`, {user_email: 'lal@example.com'})
+      .then(res => {
+        this.setState({saving: false})
+      })
+      .catch(err => {
+        this.setState({
+          error: err,
+          saving: false
+        })
+      })
   }
 
   render() {
@@ -50,6 +69,7 @@ class App extends Component {
       return <div>Error: {this.state.error.message}</div>
     }
 
+
     return (
       <div className="App">
         <div className="App-header">
@@ -58,12 +78,15 @@ class App extends Component {
             {this.state.question.description}
           </h2>
         </div>
+        
         <ul className="App-intro">
           {this.state.answers.map(answer => {
             return (
-              <li key={`answer-${answer.id}`}>
-                {answer.text}
-              </li>
+              <Answer 
+                key={answer.id}
+                answerId={answer.id}
+                answerContent={answer.text}
+                onAnswerSelected={this.handleAnswerSelected}/>
             )
           })}
         </ul>

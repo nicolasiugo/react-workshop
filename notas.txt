@@ -22,7 +22,9 @@ el estado en el .then()
 - En el render poner el if (!this.state.loading) un "cargando...". ejecutar y todo ok
 - En el render hacer un this.state.answers.map e imprimir {answer.text}
 - Apagar la api y generar error. Agregar el catch en el Promise.all
-- Hacer un componente para answer. Que sea stateless functional
+- Hacer un componente para answer. Que sea stateless functional:
+    - importar prop-types
+    - definir las props y ejecutar en developer conosole las warnings. Contar que en prod esto se va.
 
 
 
