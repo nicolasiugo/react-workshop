@@ -13,9 +13,20 @@ it('renders without crashing', () => {
   );
 
   expect(wrapper.find('label').text()).toEqual('Una respuesta');
+});
+
+it('calls the answerSelected handler on change', () => {
+
+  const mockFn = jest.fn();
+
+  const wrapper = shallow(
+    <Answer
+      answerId={1}
+      answerContent="Una respuesta"
+      onAnswerSelected={mockFn} />
+  );
 
 
-  /*checkbox.find('input').simulate('change');
-
-  expect(checkbox.text()).toEqual('On');*/
+  wrapper.find('input').simulate('change');
+  expect(mockFn).toHaveBeenCalled();
 });
