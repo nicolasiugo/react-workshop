@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import Client from './Client';
 import Answer from './components/Answer';
+import UserEmail from './components/UserEmail';
 import './App.css';
 
 class App extends Component {
@@ -9,13 +10,17 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.handleAnswerSelected = this.handleAnswerSelected.bind(this)
-    
+    this.handleSubmitEmail    = this.handleSubmitEmail.bind(this)
+    this.sendAnswer           = this.sendAnswer.bind(this)
+
     this.state = {
       loading: true,
       question: null,
       answers: [],
       error: false,
-      saving: false
+      saving: false,
+      userEmail: null,
+      answerId: null
     }
   }
 
@@ -41,11 +46,9 @@ class App extends Component {
     })
   }
 
-  handleAnswerSelected(evt) {
-    this.setState({saving: true})
-
+  postAnswer() {
     Client
-      .post(`answers/${evt.target.value}/response`, {user_email: 'lal@example.com'})
+      .post(`answers/${this.state.answerId}/response`, {user_email: this.state.email})
       .then(res => {
         this.setState({saving: false})
       })
@@ -55,6 +58,23 @@ class App extends Component {
           saving: false
         })
       })
+  }
+
+  handleAnswerSelected(evt) {
+    this.setState({
+      saving: true,
+      answerId: evt.target.value
+    })
+  }
+
+  handleSubmitEmail(userEmail) {
+    this.setState({
+      userEmail
+    })
+  }
+
+  sendAnswer() {
+    this.postAnswer();
   }
 
   render() {
@@ -69,6 +89,9 @@ class App extends Component {
       return <div>Error: {this.state.error.message}</div>
     }
 
+    if (this.state.answerId && this.state.email) {
+      return <div>Gracias!</div>
+    }
 
     return (
       <div className="App">
@@ -78,6 +101,8 @@ class App extends Component {
             {this.state.question.description}
           </h2>
         </div>
+
+        <UserEmail onSubmit={this.handleSubmitEmail}/>
         
         <ul className="App-intro">
           {this.state.answers.map(answer => {
@@ -90,6 +115,11 @@ class App extends Component {
             )
           })}
         </ul>
+
+        <div>
+          <button
+            onClick={this.sendAnswer} />
+        </div>
       </div>
     );
   }
