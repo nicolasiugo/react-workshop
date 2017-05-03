@@ -1,5 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import TextField from 'material-ui/TextField'
+import RaisedButton from 'material-ui/RaisedButton'
+import Divider from 'material-ui/Divider'
 
 
 class UserEmail extends React.Component {
@@ -26,12 +29,15 @@ class UserEmail extends React.Component {
   render() {
     return (
       <form onSubmit={this.handleSubmit}>
-        <input
+        <TextField
+          id="user-email"
+          value={this.state.value}
           onChange={this.handleChange} 
           type="email"/>
-        <input
+        <Divider />
+        <RaisedButton
           type="submit"
-          value="Enviar"/>
+          label="Enviar"/>
       </form>
     )
   }

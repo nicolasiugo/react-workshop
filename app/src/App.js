@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Client from './Client';
 import Answer from './components/Answer/Answer';
 import UserEmail from './components/UserEmail/UserEmail';
@@ -47,8 +48,9 @@ class App extends Component {
   }
 
   postAnswer() {
+    console.log(this.state)
     Client
-      .post(`answers/${this.state.answerId}/response`, {user_email: this.state.email})
+      .post(`answers/${this.state.answerId}/response`, {user_email: this.state.userEmail})
       .then(res => {
         this.setState({saving: false})
       })
@@ -74,6 +76,7 @@ class App extends Component {
   }
 
   sendAnswer() {
+
     this.postAnswer();
   }
 
@@ -94,33 +97,35 @@ class App extends Component {
     }
 
     return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>
-            {this.state.question.description}
-          </h2>
-        </div>
+      <MuiThemeProvider>
+        <div className="App">
+          <div className="App-header">
+            <img src={logo} className="App-logo" alt="logo" />
+            <h2>
+              {this.state.question.description}
+            </h2>
+          </div>
 
-        <UserEmail onSubmit={this.handleSubmitEmail}/>
-        
-        <ul className="App-intro">
-          {this.state.answers.map(answer => {
-            return (
-              <Answer 
-                key={answer.id}
-                answerId={answer.id}
-                answerContent={answer.text}
-                onAnswerSelected={this.handleAnswerSelected}/>
-            )
-          })}
-        </ul>
+          <UserEmail onSubmit={this.handleSubmitEmail}/>
+          
+          <ul className="App-intro">
+            {this.state.answers.map(answer => {
+              return (
+                <Answer 
+                  key={answer.id}
+                  answerId={answer.id}
+                  answerContent={answer.text}
+                  onAnswerSelected={this.handleAnswerSelected}/>
+              )
+            })}
+          </ul>
 
-        <div>
-          <button
-            onClick={this.sendAnswer} />
+          <div>
+            <button
+              onClick={this.sendAnswer} />
+          </div>
         </div>
-      </div>
+      </MuiThemeProvider>
     );
   }
 }
