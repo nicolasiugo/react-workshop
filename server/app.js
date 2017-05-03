@@ -183,7 +183,7 @@ app.route('/api/questions/:question_id/answers/:answer_id')
     });
   });
 
-app.route('/api/answers/:answer_id/response')
+app.route('/api/questions/:question_id/answers/:answer_id/response')
   .post(function(req, res) {
     var user_answer = UserAnswer.build(_.pick(req.body, ['user_email']));
     user_answer.set('answer_id', req.params.answer_id);

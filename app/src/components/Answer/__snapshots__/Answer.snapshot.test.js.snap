@@ -1,7 +1,7 @@
 exports[`test renders correctly 1`] = `
 <div>
   <input
-    defaultChecked={false}
+    checked={false}
     id="answer-input-1"
     onChange={[Function]}
     type="radio"

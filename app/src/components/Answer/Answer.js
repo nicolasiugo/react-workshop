@@ -1,12 +1,13 @@
 import React from 'react'
-import PropTypes from 'prop-types';
+import PropTypes from 'prop-types'
 
 
 const Answer = (props) => {
   const {
     answerId,
     onAnswerSelected,
-    answerContent
+    answerContent,
+    isChecked
   } = props;
 
   return (
@@ -14,7 +15,7 @@ const Answer = (props) => {
       <input 
         id={`answer-input-${answerId}`}
         value={answerId}
-        defaultChecked={false}
+        checked={isChecked}
         type="radio"
         onChange={onAnswerSelected}/>
       <label htmlFor={`answer-input-${answerId}`}>
@@ -24,8 +25,13 @@ const Answer = (props) => {
   );
 }
 
+Answer.defaultProps = {
+  isChecked: false
+}
+
 Answer.propTypes = {
   answerId: PropTypes.number.isRequired,
+  isChecked: PropTypes.bool,
   answerContent: PropTypes.string.isRequired,
   onAnswerSelected: PropTypes.func.isRequired
 }

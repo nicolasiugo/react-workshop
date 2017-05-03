@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import Client from './Client';
-import Answer from './components/Answer/Answer';
-import UserEmail from './components/UserEmail/UserEmail';
-import './App.css';
+import React, { Component } from 'react'
+import logo from './logo.svg'
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+import Client from './Client'
+import Question from './components/Question/Question'
+import UserEmail from './components/UserEmail/UserEmail'
+import './App.css'
 
 class App extends Component {
 
@@ -12,7 +12,6 @@ class App extends Component {
     super(props);
     this.handleAnswerSelected = this.handleAnswerSelected.bind(this)
     this.handleSubmitEmail    = this.handleSubmitEmail.bind(this)
-    this.sendAnswer           = this.sendAnswer.bind(this)
 
     this.state = {
       loading: true,
@@ -50,7 +49,7 @@ class App extends Component {
   postAnswer() {
     console.log(this.state)
     Client
-      .post(`answers/${this.state.answerId}/response`, {user_email: this.state.userEmail})
+      .post(`questions/1/answers/${this.state.answerId}/response`, {user_email: this.state.userEmail})
       .then(res => {
         this.setState({saving: false})
       })
@@ -62,10 +61,12 @@ class App extends Component {
       })
   }
 
-  handleAnswerSelected(evt) {
+  handleAnswerSelected(answerId) {
     this.setState({
       saving: true,
-      answerId: evt.target.value
+      answerId
+    }, () => {
+      this.postAnswer()
     })
   }
 
@@ -73,11 +74,6 @@ class App extends Component {
     this.setState({
       userEmail
     })
-  }
-
-  sendAnswer() {
-
-    this.postAnswer();
   }
 
   render() {
@@ -92,7 +88,7 @@ class App extends Component {
       return <div>Error: {this.state.error.message}</div>
     }
 
-    if (this.state.answerId && this.state.email) {
+    if (this.state.answerId && this.state.userEmail) {
       return <div>Gracias!</div>
     }
 
@@ -106,23 +102,12 @@ class App extends Component {
             </h2>
           </div>
 
-          <UserEmail onSubmit={this.handleSubmitEmail}/>
-          
-          <ul className="App-intro">
-            {this.state.answers.map(answer => {
-              return (
-                <Answer 
-                  key={answer.id}
-                  answerId={answer.id}
-                  answerContent={answer.text}
-                  onAnswerSelected={this.handleAnswerSelected}/>
-              )
-            })}
-          </ul>
-
           <div>
-            <button
-              onClick={this.sendAnswer} />
+            {!this.state.userEmail 
+              ? <UserEmail onSubmit={this.handleSubmitEmail}/>
+              : <Question
+                  onAnswerSelected={this.handleAnswerSelected}
+                  answers={this.state.answers} />}
           </div>
         </div>
       </MuiThemeProvider>
