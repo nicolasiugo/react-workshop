@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import Client from './Client';
-import Answer from './components/Answer';
-import UserEmail from './components/UserEmail';
+import Answer from './components/Answer/Answer';
+import UserEmail from './components/UserEmail/UserEmail';
 import './App.css';
 
 class App extends Component {

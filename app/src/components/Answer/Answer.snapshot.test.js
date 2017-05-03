@@ -1,5 +1,5 @@
 import React from 'react';
-import Answer from '../src/components/Answer.js';
+import Answer from './Answer';
 import renderer from 'react-test-renderer';
 
 it('renders correctly', () => {
