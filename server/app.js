@@ -54,11 +54,11 @@ UserAnswer = sequelize.define('user_answer', {
 
 sequelize.sync().then(function() {
   Question.create({
-    description: "Que te ha parecido React?"
+    description: "¿Qué te ha parecido React?"
   })
   .then(q => {
     Answer.create({
-      text: "Demasiado complejo :(",
+      text: "Demasiado complicado :(",
       question_id: q.id
     });
 
@@ -68,7 +68,7 @@ sequelize.sync().then(function() {
     });
 
     Answer.create({
-      text: "Está muy bueno",
+      text: "Está bueno",
       question_id: q.id
     });
 

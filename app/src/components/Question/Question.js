@@ -31,20 +31,21 @@ class Question extends React.Component {
 
   render() {
     return (
-      <div>
-        <ul className="App-intro">
-          {this.props.answers.map(answer => {
-            return (
-              <Answer 
-                key={answer.id}
-                isChecked={parseInt(this.state.selectedAnswerId, 10) === answer.id}
-                answerId={answer.id}
-                answerContent={answer.text}
-                onAnswerSelected={this.handleAnswerSelected}/>
-            )
-          })}
-        </ul>
+      <div style={{textAlign: 'left', margin: '30px'}}>
+        <h3>{this.props.question.description}</h3>
+        {this.props.answers.map(answer => {
+          return (
+            <Answer 
+              key={answer.id}
+              isChecked={parseInt(this.state.selectedAnswerId, 10) === answer.id}
+              answerId={answer.id}
+              answerContent={answer.text}
+              onAnswerSelected={this.handleAnswerSelected}/>
+          )
+        })}
         <RaisedButton
+          primary
+          style={{marginTop:'30px'}}
           onClick={this.handleSubmit}
           label="Enviar respuesta!"/>
       </div>
@@ -54,6 +55,7 @@ class Question extends React.Component {
 
 Question.propTypes = {
   answers: PropTypes.array,
+  question: PropTypes.object.isRequired,
   onAnswerSelected: PropTypes.func.isRequired
 }
 

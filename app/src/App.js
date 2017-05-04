@@ -98,7 +98,7 @@ class App extends Component {
           <div className="App-header">
             <img src={logo} className="App-logo" alt="logo" />
             <h2>
-              {this.state.question.description}
+              SmartTalent Quiz
             </h2>
           </div>
 
@@ -106,6 +106,7 @@ class App extends Component {
             {!this.state.userEmail 
               ? <UserEmail onSubmit={this.handleSubmitEmail}/>
               : <Question
+                  question={this.state.question}
                   onAnswerSelected={this.handleAnswerSelected}
                   answers={this.state.answers} />}
           </div>
